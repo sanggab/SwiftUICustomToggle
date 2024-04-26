@@ -19,7 +19,7 @@ struct ContentView: View {
             Text(state ? "ON" : "OFF")
                 .frame(maxWidth: 36)
         }
-        
+        .changeColor(on: .mint)
         
     }
 }

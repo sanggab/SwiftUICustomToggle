@@ -10,9 +10,10 @@ import SwiftUI
 public struct CustomToggleView<ContentView: View>: View {
     @Binding public var isOn: Bool
     
-    public var label: () -> ContentView
-    
-    private var model: ToggleModel = .init()
+    public private(set) var label: () -> ContentView
+    public private(set) var model: ToggleModel = .init()
+    public private(set) var isOnBgColor: Color = .yellow
+    public private(set) var isOffBgColor: Color = .gray
     
     public init(isOn: Binding<Bool>,
          @ViewBuilder label: @escaping () -> ContentView) {
@@ -26,7 +27,7 @@ public struct CustomToggleView<ContentView: View>: View {
                 .animation(nil, value: UUID())
             
             RoundedRectangle(cornerRadius: model.buttonRadius)
-                .fill(isOn ? .yellow : .gray)
+                .fill(isOn ? isOnBgColor : isOffBgColor)
                 .frame(width: model.buttonSize.width, height: model.buttonSize.height)
                 .overlay {
                     ZStack {
@@ -52,7 +53,12 @@ public struct CustomToggleView<ContentView: View>: View {
         return view
     }
     
-//    public enum 
+    public func changeColor(on: Color = .yellow, off: Color = .gray) -> CustomToggleView {
+        var view = self
+        view.isOnBgColor = on
+        view.isOffBgColor = off
+        return view
+    }
 }
 
 #Preview {
