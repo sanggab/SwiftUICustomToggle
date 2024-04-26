@@ -8,14 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var state: Bool = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+//        Toggle(isOn: $state) {
+//            Text(state ? "ON" : "OFF")
+//        }
+        
+        CustomToggleView(isOn: $state) {
+            Text(state ? "ON" : "OFF")
+                .frame(maxWidth: 36)
         }
-        .padding()
+        
+        
     }
 }
 

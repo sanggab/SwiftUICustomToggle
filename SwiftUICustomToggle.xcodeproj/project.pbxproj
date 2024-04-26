@@ -14,6 +14,9 @@
 		EF56A5192BDB27DB00AD28B5 /* SwiftUICustomToggleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF56A5182BDB27DB00AD28B5 /* SwiftUICustomToggleTests.swift */; };
 		EF56A5232BDB27DB00AD28B5 /* SwiftUICustomToggleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF56A5222BDB27DB00AD28B5 /* SwiftUICustomToggleUITests.swift */; };
 		EF56A5252BDB27DB00AD28B5 /* SwiftUICustomToggleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF56A5242BDB27DB00AD28B5 /* SwiftUICustomToggleUITestsLaunchTests.swift */; };
+		EF56A5322BDB28AA00AD28B5 /* MyToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF56A5312BDB28AA00AD28B5 /* MyToggleStyle.swift */; };
+		EF56A5342BDB398D00AD28B5 /* ToggleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF56A5332BDB398D00AD28B5 /* ToggleModifier.swift */; };
+		EF56A5362BDB3A2A00AD28B5 /* CustomToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF56A5352BDB3A2A00AD28B5 /* CustomToggleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,9 @@
 		EF56A51E2BDB27DB00AD28B5 /* SwiftUICustomToggleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftUICustomToggleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF56A5222BDB27DB00AD28B5 /* SwiftUICustomToggleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICustomToggleUITests.swift; sourceTree = "<group>"; };
 		EF56A5242BDB27DB00AD28B5 /* SwiftUICustomToggleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICustomToggleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EF56A5312BDB28AA00AD28B5 /* MyToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyToggleStyle.swift; sourceTree = "<group>"; };
+		EF56A5332BDB398D00AD28B5 /* ToggleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleModifier.swift; sourceTree = "<group>"; };
+		EF56A5352BDB3A2A00AD28B5 /* CustomToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToggleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +100,11 @@
 		EF56A5062BDB27D900AD28B5 /* SwiftUICustomToggle */ = {
 			isa = PBXGroup;
 			children = (
+				EF56A5312BDB28AA00AD28B5 /* MyToggleStyle.swift */,
+				EF56A5332BDB398D00AD28B5 /* ToggleModifier.swift */,
 				EF56A5072BDB27D900AD28B5 /* SwiftUICustomToggleApp.swift */,
 				EF56A5092BDB27D900AD28B5 /* ContentView.swift */,
+				EF56A5352BDB3A2A00AD28B5 /* CustomToggleView.swift */,
 				EF56A50B2BDB27DB00AD28B5 /* Assets.xcassets */,
 				EF56A50D2BDB27DB00AD28B5 /* Preview Content */,
 			);
@@ -257,8 +266,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF56A5342BDB398D00AD28B5 /* ToggleModifier.swift in Sources */,
 				EF56A50A2BDB27D900AD28B5 /* ContentView.swift in Sources */,
 				EF56A5082BDB27D900AD28B5 /* SwiftUICustomToggleApp.swift in Sources */,
+				EF56A5362BDB3A2A00AD28B5 /* CustomToggleView.swift in Sources */,
+				EF56A5322BDB28AA00AD28B5 /* MyToggleStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
