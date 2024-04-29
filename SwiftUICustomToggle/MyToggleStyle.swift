@@ -8,12 +8,6 @@
 import SwiftUI
 
 public struct ToggleModel: Equatable {
-//    public static let baisc: ToggleModel = ToggleModel(spacing: .zero,
-//                                                       labelSize: CGSize(width: 36, height: 22),
-//                                                       buttonRadius: 10,
-//                                                       buttonSize: CGSize(width: 36, height: 20),
-//                                                       circleSize: CGSize(width: 16, height: 16),
-//                                                       circleInset: 2)
     public var spacing: CGFloat
     
     public var labelSize: CGSize
@@ -23,15 +17,6 @@ public struct ToggleModel: Equatable {
     
     public var circleSize: CGSize
     public var circleInset: CGFloat
-    
-//    init(spacing: CGFloat, labelSize: CGSize, buttonRadius: CGFloat, buttonSize: CGSize, circleSize: CGSize, circleInset: CGFloat) {
-//        self.spacing = spacing
-//        self.labelSize = labelSize
-//        self.buttonRadius = buttonRadius
-//        self.buttonSize = buttonSize
-//        self.circleSize = circleSize
-//        self.circleInset = circleInset
-//    }
     
     public init(spacing: CGFloat = .zero,
                 labelSize: CGSize = CGSize(width: 36, height: 22),
