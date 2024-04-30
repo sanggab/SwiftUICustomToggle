@@ -15,11 +15,12 @@ struct ContentView: View {
 //            Text(state ? "ON" : "OFF")
 //        }
         
-        CustomToggleView(isOn: $state) {
+        NewToggle(isOn: $state) {
             Text(state ? "ON" : "OFF")
                 .frame(maxWidth: 36)
         }
         .changeColor(on: .mint)
+        .circleStyle(CirclePadding(.all, 2))
         
     }
 }
