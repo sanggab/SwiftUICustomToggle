@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+/// Circle Padding
 @frozen
 public struct CirclePadding: Hashable {
     public func hash(into hasher: inout Hasher) {
@@ -20,6 +22,26 @@ public struct CirclePadding: Hashable {
     public init(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) {
         self.edges = edges
         self.length = length
+    }
+}
+
+@frozen
+public struct CircleStyle: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(size.width)
+        hasher.combine(size.height)
+        hasher.combine(color)
+        hasher.combine(padding)
+    }
+    
+    public var size: CGSize
+    public var color: Color
+    public var padding: CirclePadding
+    
+    public init(size: CGSize = .zero, color: Color = .white, padding: CirclePadding = CirclePadding(.all, 2)) {
+        self.size = size
+        self.color = color
+        self.padding = padding
     }
 }
 

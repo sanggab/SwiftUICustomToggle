@@ -20,8 +20,11 @@ struct ContentView: View {
                 .frame(maxWidth: 36)
         }
         .changeColor(on: .mint)
-        .circleStyle(CirclePadding(.all, 2))
-        
+//        .circlePadding(2)
+//        .isOffCircleEdge(.init(.leading, 2))
+//        .isOffCircleEdge(.init(.top, 3))
+        .test()
+        .test()
     }
 }
 
