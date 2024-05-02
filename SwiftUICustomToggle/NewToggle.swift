@@ -104,14 +104,15 @@ public extension NewToggle {
     func isOnCircleEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
         var view = self
 //        view.circleOnPadding = padding
-        
+        view.calIsOnPadding(padding)
         return view
     }
     
     /// Toggle Button Circle Off padding
     func isOffCircleEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
-        var view = self
+        let view = self
 //        view.circleOffPadding = padding
+        view.calIsOffPadding(padding)
         return view
     }
     
@@ -125,7 +126,29 @@ public extension NewToggle {
 
 private extension NewToggle {
     
-    func test(_ padding: CirclePadding) {
+    mutating func calIsOnPadding(_ padding: CirclePadding) {
+        switch padding.edges {
+        case .all:
+            print("all")
+            circleOnEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
+        case .leading:
+            print("leading")
+        case .trailing:
+            print("trailing")
+        case .top:
+            print("top")
+        case .bottom:
+            print("bottom")
+        case .horizontal:
+            print("horizontal")
+        case .vertical:
+            print("vertical")
+        default:
+            print("멍미?")
+        }
+    }
+    
+    func calIsOffPadding(_ padding: CirclePadding) {
         switch padding.edges {
         case .all:
             print("all")

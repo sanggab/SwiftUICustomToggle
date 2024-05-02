@@ -23,8 +23,7 @@ struct ContentView: View {
 //        .circlePadding(2)
 //        .isOffCircleEdge(.init(.leading, 2))
 //        .isOffCircleEdge(.init(.top, 3))
-        .test()
-        .test()
+        .isOnCircleEdge()
     }
 }
 
