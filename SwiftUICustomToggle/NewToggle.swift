@@ -23,11 +23,10 @@ public struct NewToggle<ContentView: View>: View {
     private var circleOnEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     private var circleOffEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     
-    private var circleSize: CGSize = .zero
-    private var circleColor: Color = .red
-    private var circlePadding: CGFloat = .zero
+    @State private var testhoho: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     
-    private var circleSyle: CircleStyle = CircleStyle()
+    private var knobSize: CGSize = .zero
+    private var knobColor: Color = .white
     
     public init(isOn: Binding<Bool>,
          @ViewBuilder label: @escaping () -> ContentView) {
@@ -44,19 +43,19 @@ public struct NewToggle<ContentView: View>: View {
             RoundedRectangle(cornerRadius: model.buttonRadius)
                 .fill(isOn ? isOnBgColor : isOffBgColor)
                 .frame(width: model.buttonSize.width, height: model.buttonSize.height)
-                .overlay {
-                    AsyncImage(url: URL(string: bgImageString)) { image in
-                        image.resizable()
-                    } placeholder: {
-                        EmptyView()
-                    }
-                    .frame(width: model.buttonSize.width, height: model.buttonSize.height)
-                    .cornerRadius(model.buttonRadius)
-                }
+//                .overlay {
+//                    AsyncImage(url: URL(string: bgImageString)) { image in
+//                        image.resizable()
+//                    } placeholder: {
+//                        EmptyView()
+//                    }
+//                    .frame(width: model.buttonSize.width, height: model.buttonSize.height)
+//                    .cornerRadius(model.buttonRadius)
+//                }
                 .overlay {
                     ZStack {
                         Circle()
-                            .fill(circleColor)
+                            .fill(knobColor)
                             .padding(isOn ? circleOnEdge : circleOffEdge)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: isOn ? .trailing : .leading)
@@ -85,85 +84,105 @@ public struct NewToggle<ContentView: View>: View {
 
 // MARK: CircleStyle Method
 public extension NewToggle {
-    func circleSize(_ size: CGSize = .zero) -> NewToggle {
+    func knobSize(_ size: CGSize = .zero) -> NewToggle {
         var view = self
-        view.circleSize = size
+        view.knobSize = size
         return view
     }
     
-    /// 토글 버튼 Circle의 Padding
-    /// Egde는 All로 들어간다. 주의할 점은 On / Off 시의 padding을 다 적용시키기 떄문에 이후에 isOnCircleEdge 이나 isOffCircleEdge를 적용시킬때 조심
-    func circlePadding(_ length: CGFloat = 2) -> NewToggle {
+    func knobColor(_ color: Color = .white) -> NewToggle {
         var view = self
-//        view.circleOnPadding = CirclePadding(.all, length)
-//        view.circleOffPadding = CirclePadding(.all, length)
+        view.knobColor = color
         return view
     }
     
-    /// Toggle Button Circle On padding
-    func isOnCircleEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
-        var view = self
-//        view.circleOnPadding = padding
-        view.calIsOnPadding(padding)
+    func knobPadding(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) -> NewToggle {
+        var view = self 
+        
         return view
     }
     
-    /// Toggle Button Circle Off padding
-    func isOffCircleEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
-        let view = self
-//        view.circleOffPadding = padding
-        view.calIsOffPadding(padding)
-        return view
-    }
-    
-    /// Toggle Button Circle Bacgkround Color
-    func circleColor(_ color: Color = .white) -> NewToggle {
-        var view = self
-        view.circleColor = color
-        return view
-    }
+//    /// 토글 버튼 Circle의 Padding
+//    /// isOn, isOff에 padding이 똑같이 들어간다
+//    func circleIndicatorEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
+//        var view = self
+//        view.calIsOnPadding(padding)
+//        view.calIsOffPadding(padding)
+//        return view
+//    }
+//    
+//    /// Toggle Button Circle On padding
+//    func isOnCircleEdge(_ edge: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
+//        var view = self
+//        view.calIsOnPadding(padding)
+//        return view
+//    }
+//    
+//    /// Toggle Button Circle Off padding
+//    func isOffCircleEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
+//        var view = self
+//        view.calIsOffPadding(padding)
+//        return view
+//    }
 }
 
 private extension NewToggle {
     
-    mutating func calIsOnPadding(_ padding: CirclePadding) {
+    mutating func dd(_ padding: CirclePadding) {
         switch padding.edges {
         case .all:
             print("all")
             circleOnEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
         case .leading:
             print("leading")
+            circleOnEdge.leading += padding.length
         case .trailing:
             print("trailing")
+            circleOnEdge.trailing += padding.length
         case .top:
             print("top")
+            circleOnEdge.top += padding.length
         case .bottom:
             print("bottom")
+            circleOnEdge.bottom += padding.length
         case .horizontal:
             print("horizontal")
+            circleOnEdge.leading += padding.length
+            circleOnEdge.trailing += padding.length
         case .vertical:
             print("vertical")
+            circleOnEdge.top += padding.length
+            circleOnEdge.bottom += padding.length
         default:
             print("멍미?")
         }
     }
     
-    func calIsOffPadding(_ padding: CirclePadding) {
+    mutating func calIsOffPadding(_ padding: CirclePadding) {
         switch padding.edges {
         case .all:
             print("all")
+            circleOffEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
         case .leading:
             print("leading")
+            circleOffEdge.leading += padding.length
         case .trailing:
             print("trailing")
+            circleOffEdge.trailing += padding.length
         case .top:
             print("top")
+            circleOffEdge.top += padding.length
         case .bottom:
             print("bottom")
+            circleOffEdge.bottom += padding.length
         case .horizontal:
             print("horizontal")
+            circleOffEdge.leading += padding.length
+            circleOffEdge.trailing += padding.length
         case .vertical:
             print("vertical")
+            circleOffEdge.top += padding.length
+            circleOffEdge.bottom += padding.length
         default:
             print("멍미?")
         }
