@@ -11,16 +11,11 @@ struct ContentView: View {
     @State private var state: Bool = false
     
     var body: some View {
-//        Toggle(isOn: $state) {
-//            Text(state ? "ON" : "OFF")
-//        }
-        
         NewToggle(isOn: $state) {
             Text(state ? "ON" : "OFF")
                 .frame(maxWidth: 36)
         }
         .changeColor(on: .mint)
-//        .circlePadding()
     }
 }
 

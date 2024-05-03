@@ -17,13 +17,8 @@ public struct NewToggle<ContentView: View>: View {
     
     public var bgImageString: String = "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D"
     
-    
-    private var isTest: Bool = false
-    
-    private var circleOnEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
-    private var circleOffEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
-    
-    @State private var testhoho: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
+    private var isOnKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
+    private var isOffKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     
     private var knobSize: CGSize = .zero
     private var knobColor: Color = .white
@@ -56,7 +51,7 @@ public struct NewToggle<ContentView: View>: View {
                     ZStack {
                         Circle()
                             .fill(knobColor)
-                            .padding(isOn ? circleOnEdge : circleOffEdge)
+                            .padding(isOn ? isOnKnobEdge : isOffKnobEdge)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: isOn ? .trailing : .leading)
                 }
@@ -67,14 +62,17 @@ public struct NewToggle<ContentView: View>: View {
                 }
         }
     }
-    
-    public func custom(_ model: CustomToggleModel) -> NewToggle {
+}
+
+// MARK: Helper
+public extension NewToggle {
+    func custom(_ model: CustomToggleModel) -> NewToggle {
         var view = self
         view.model = model
         return view
     }
     
-    public func changeColor(on: Color = .yellow, off: Color = .gray) -> NewToggle {
+    func changeColor(on: Color = .yellow, off: Color = .gray) -> NewToggle {
         var view = self
         view.isOnBgColor = on
         view.isOffBgColor = off
@@ -82,7 +80,7 @@ public struct NewToggle<ContentView: View>: View {
     }
 }
 
-// MARK: CircleStyle Method
+// MARK: Knob Method
 public extension NewToggle {
     func knobSize(_ size: CGSize = .zero) -> NewToggle {
         var view = self
@@ -97,94 +95,70 @@ public extension NewToggle {
     }
     
     func knobPadding(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) -> NewToggle {
-        var view = self 
-        
+        var view = self
+        view.calIsOnKnobEdge(CirclePadding(edges, length))
+        view.calIsOffKnobEdge(CirclePadding(edges, length))
         return view
     }
     
-//    /// 토글 버튼 Circle의 Padding
-//    /// isOn, isOff에 padding이 똑같이 들어간다
-//    func circleIndicatorEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
-//        var view = self
-//        view.calIsOnPadding(padding)
-//        view.calIsOffPadding(padding)
-//        return view
-//    }
-//    
-//    /// Toggle Button Circle On padding
-//    func isOnCircleEdge(_ edge: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
-//        var view = self
-//        view.calIsOnPadding(padding)
-//        return view
-//    }
-//    
-//    /// Toggle Button Circle Off padding
-//    func isOffCircleEdge(_ padding: CirclePadding = CirclePadding(.all, 2)) -> NewToggle {
-//        var view = self
-//        view.calIsOffPadding(padding)
-//        return view
-//    }
+    func isOnKnobPadding(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) -> NewToggle {
+        var view = self
+        view.calIsOnKnobEdge(CirclePadding(edges, length))
+        return view
+    }
+    
+    func isOffKnobPadding(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) -> NewToggle {
+        var view = self
+        view.calIsOffKnobEdge(CirclePadding(edges, length))
+        return view
+    }
 }
 
 private extension NewToggle {
     
-    mutating func dd(_ padding: CirclePadding) {
+    mutating func calIsOnKnobEdge(_ padding: CirclePadding) {
         switch padding.edges {
         case .all:
-            print("all")
-            circleOnEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
+            isOnKnobEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
         case .leading:
-            print("leading")
-            circleOnEdge.leading += padding.length
+            isOnKnobEdge.leading += padding.length
         case .trailing:
-            print("trailing")
-            circleOnEdge.trailing += padding.length
+            isOnKnobEdge.trailing += padding.length
         case .top:
-            print("top")
-            circleOnEdge.top += padding.length
+            isOnKnobEdge.top += padding.length
         case .bottom:
-            print("bottom")
-            circleOnEdge.bottom += padding.length
+            isOnKnobEdge.bottom += padding.length
         case .horizontal:
-            print("horizontal")
-            circleOnEdge.leading += padding.length
-            circleOnEdge.trailing += padding.length
+            isOnKnobEdge.leading += padding.length
+            isOnKnobEdge.trailing += padding.length
         case .vertical:
-            print("vertical")
-            circleOnEdge.top += padding.length
-            circleOnEdge.bottom += padding.length
+            isOnKnobEdge.top += padding.length
+            isOnKnobEdge.bottom += padding.length
         default:
-            print("멍미?")
+            isOnKnobEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
         }
     }
     
-    mutating func calIsOffPadding(_ padding: CirclePadding) {
+    mutating func calIsOffKnobEdge(_ padding: CirclePadding) {
         switch padding.edges {
         case .all:
-            print("all")
-            circleOffEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
+            isOffKnobEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
         case .leading:
-            print("leading")
-            circleOffEdge.leading += padding.length
+            isOffKnobEdge.leading += padding.length
         case .trailing:
-            print("trailing")
-            circleOffEdge.trailing += padding.length
+            isOffKnobEdge.trailing += padding.length
         case .top:
-            print("top")
-            circleOffEdge.top += padding.length
+            isOffKnobEdge.top += padding.length
         case .bottom:
-            print("bottom")
-            circleOffEdge.bottom += padding.length
+            isOffKnobEdge.bottom += padding.length
         case .horizontal:
-            print("horizontal")
-            circleOffEdge.leading += padding.length
-            circleOffEdge.trailing += padding.length
+            isOffKnobEdge.leading += padding.length
+            isOffKnobEdge.trailing += padding.length
         case .vertical:
-            print("vertical")
-            circleOffEdge.top += padding.length
-            circleOffEdge.bottom += padding.length
+            isOffKnobEdge.top += padding.length
+            isOffKnobEdge.bottom += padding.length
         default:
-            print("멍미?")
+            isOffKnobEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
         }
     }
 }
