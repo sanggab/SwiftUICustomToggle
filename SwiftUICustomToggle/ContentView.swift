@@ -18,7 +18,7 @@ struct ContentView: View {
                 .frame(maxWidth: 36)
         }
         .changeColor(on: .mint)
-        .addViewBetweenBackgroundKnob {
+        .replaceCustomBackgroundView {
             AsyncImage(url: URL(string: bgImageString)) { image in
                 image.resizable()
             } placeholder: {
@@ -27,6 +27,8 @@ struct ContentView: View {
             .frame(width: 36, height: 20)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
+        .knobPadding(.all, 2)
+        .knobColor(.mint)
     }
 }
 

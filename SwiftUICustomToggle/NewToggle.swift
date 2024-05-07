@@ -21,7 +21,7 @@ public struct NewToggle<ContentView: View>: View {
     private var knobSize: CGSize = .zero
     private var knobColor: Color = .white
     
-    private var betweenBackgroundKnobView: AnyView?
+    private var customBackgroundView: AnyView?
     private var aboveKnobView: AnyView?
     
     public init(isOn: Binding<Bool>,
@@ -40,8 +40,8 @@ public struct NewToggle<ContentView: View>: View {
                 .fill(isOn ? isOnBgColor : isOffBgColor)
                 .frame(width: model.buttonSize.width, height: model.buttonSize.height)
                 .overlay {
-                    if let betweenBackgroundKnobView {
-                        betweenBackgroundKnobView
+                    if let customBackgroundView {
+                        customBackgroundView
                     }
                 }
                 .overlay {
@@ -89,10 +89,10 @@ public extension NewToggle {
         view.isOffBgColor = off
         return view
     }
-    
-    func addViewBetweenBackgroundKnob<V: View>(@ViewBuilder content: @escaping () -> V) -> NewToggle {
+    // button의 background를 content로 교체한다
+    func replaceCustomBackgroundView<V: View>(@ViewBuilder content: @escaping () -> V) -> NewToggle {
         var view = self
-        view.betweenBackgroundKnobView = AnyView(erasing: content())
+        view.customBackgroundView = AnyView(erasing: content())
         return view
     }
 }
