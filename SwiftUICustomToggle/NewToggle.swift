@@ -19,7 +19,8 @@ public struct NewToggle<ContentView: View>: View {
     private var isOffKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     
     private var knobSize: CGSize = .zero
-    private var knobColor: Color = .white
+    private var isOnKnobColor: Color = .white
+    private var isOffKnobColor: Color = .white
     
     private var customBackgroundView: AnyView?
     private var aboveKnobView: AnyView?
@@ -64,7 +65,7 @@ public struct NewToggle<ContentView: View>: View {
     
     public var circleView: some View {
         Circle()
-            .fill(knobColor)
+            .fill(isOn ? isOnKnobColor : isOffKnobColor)
             .overlay {
                 if let aboveKnobView {
                     aboveKnobView
@@ -107,7 +108,15 @@ public extension NewToggle {
     
     func knobColor(_ color: Color = .white) -> NewToggle {
         var view = self
-        view.knobColor = color
+        view.isOnKnobColor = color
+        view.isOffKnobColor = color
+        return view
+    }
+    
+    func knobColor(on: Color = .white, off: Color = .white) -> NewToggle {
+        var view = self
+        view.isOnKnobColor = on
+        view.isOffKnobColor = off
         return view
     }
     

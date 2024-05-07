@@ -17,7 +17,7 @@ struct ContentView: View {
             Text(state ? "ON" : "OFF")
                 .frame(maxWidth: 36)
         }
-        .changeColor(on: .mint)
+        .changeColor(on: .mint, off: .pink)
         .replaceCustomBackgroundView {
             AsyncImage(url: URL(string: bgImageString)) { image in
                 image.resizable()
@@ -28,7 +28,7 @@ struct ContentView: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .knobPadding(.all, 2)
-        .knobColor(.mint)
+        .knobColor(state ? .pink : .mint)
     }
 }
 
