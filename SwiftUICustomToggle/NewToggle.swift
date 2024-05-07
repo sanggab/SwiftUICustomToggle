@@ -15,16 +15,17 @@ public struct NewToggle<ContentView: View>: View {
     private var isOnBgColor: Color = .yellow
     private var isOffBgColor: Color = .gray
     
-    public var bgImageString: String = "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D"
-    
     private var isOnKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     private var isOffKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     
     private var knobSize: CGSize = .zero
     private var knobColor: Color = .white
     
+    private var betweenBackgroundKnobView: AnyView?
+    private var aboveKnobView: AnyView?
+    
     public init(isOn: Binding<Bool>,
-         @ViewBuilder label: @escaping () -> ContentView) {
+                @ViewBuilder label: @escaping () -> ContentView) {
         self._isOn = isOn
         self.label = label
         print("hi")
@@ -38,22 +39,13 @@ public struct NewToggle<ContentView: View>: View {
             RoundedRectangle(cornerRadius: model.buttonRadius)
                 .fill(isOn ? isOnBgColor : isOffBgColor)
                 .frame(width: model.buttonSize.width, height: model.buttonSize.height)
-//                .overlay {
-//                    AsyncImage(url: URL(string: bgImageString)) { image in
-//                        image.resizable()
-//                    } placeholder: {
-//                        EmptyView()
-//                    }
-//                    .frame(width: model.buttonSize.width, height: model.buttonSize.height)
-//                    .cornerRadius(model.buttonRadius)
-//                }
                 .overlay {
-                    ZStack {
-                        Circle()
-                            .fill(knobColor)
-                            .padding(isOn ? isOnKnobEdge : isOffKnobEdge)
+                    if let betweenBackgroundKnobView {
+                        betweenBackgroundKnobView
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: isOn ? .trailing : .leading)
+                }
+                .overlay {
+                    knobView
                 }
                 .onTapGesture {
                     withAnimation {
@@ -62,7 +54,26 @@ public struct NewToggle<ContentView: View>: View {
                 }
         }
     }
+    
+    public var knobView: some View {
+        ZStack {
+            circleView
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: isOn ? .trailing : .leading)
+    }
+    
+    public var circleView: some View {
+        Circle()
+            .fill(knobColor)
+            .overlay {
+                if let aboveKnobView {
+                    aboveKnobView
+                }
+            }
+            .padding(isOn ? isOnKnobEdge : isOffKnobEdge)
+    }
 }
+
 
 // MARK: Helper
 public extension NewToggle {
@@ -76,6 +87,12 @@ public extension NewToggle {
         var view = self
         view.isOnBgColor = on
         view.isOffBgColor = off
+        return view
+    }
+    
+    func addViewBetweenBackgroundKnob<V: View>(@ViewBuilder content: @escaping () -> V) -> NewToggle {
+        var view = self
+        view.betweenBackgroundKnobView = AnyView(erasing: content())
         return view
     }
 }
@@ -96,27 +113,34 @@ public extension NewToggle {
     
     func knobPadding(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) -> NewToggle {
         var view = self
-        view.calIsOnKnobEdge(CirclePadding(edges, length))
-        view.calIsOffKnobEdge(CirclePadding(edges, length))
+        view.calIsOnKnobEdge(KnobPadding(edges, length))
+        view.calIsOffKnobEdge(KnobPadding(edges, length))
         return view
     }
     
     func isOnKnobPadding(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) -> NewToggle {
         var view = self
-        view.calIsOnKnobEdge(CirclePadding(edges, length))
+        view.calIsOnKnobEdge(KnobPadding(edges, length))
         return view
     }
     
     func isOffKnobPadding(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) -> NewToggle {
         var view = self
-        view.calIsOffKnobEdge(CirclePadding(edges, length))
+        view.calIsOffKnobEdge(KnobPadding(edges, length))
         return view
     }
+    
+    func addViewAboveKnob<V: View>(@ViewBuilder content: @escaping () -> V) -> NewToggle {
+        var view = self
+        view.aboveKnobView = AnyView(erasing: content())
+        return view
+    }
+    
 }
 
 private extension NewToggle {
     
-    mutating func calIsOnKnobEdge(_ padding: CirclePadding) {
+    mutating func calIsOnKnobEdge(_ padding: KnobPadding) {
         switch padding.edges {
         case .all:
             isOnKnobEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
@@ -139,7 +163,7 @@ private extension NewToggle {
         }
     }
     
-    mutating func calIsOffKnobEdge(_ padding: CirclePadding) {
+    mutating func calIsOffKnobEdge(_ padding: KnobPadding ) {
         switch padding.edges {
         case .all:
             isOffKnobEdge += EdgeInsets(top: padding.length, leading: padding.length, bottom: padding.length, trailing: padding.length)
