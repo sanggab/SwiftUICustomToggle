@@ -107,9 +107,9 @@
 				EF56A5072BDB27D900AD28B5 /* SwiftUICustomToggleApp.swift */,
 				EF56A5092BDB27D900AD28B5 /* ContentView.swift */,
 				EF56A5352BDB3A2A00AD28B5 /* CustomToggleView.swift */,
+				EFD5B4A42BE074EE00B0B061 /* NewToggle.swift */,
 				EF56A50B2BDB27DB00AD28B5 /* Assets.xcassets */,
 				EF56A50D2BDB27DB00AD28B5 /* Preview Content */,
-				EFD5B4A42BE074EE00B0B061 /* NewToggle.swift */,
 			);
 			path = SwiftUICustomToggle;
 			sourceTree = "<group>";
