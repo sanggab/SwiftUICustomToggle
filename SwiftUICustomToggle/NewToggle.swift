@@ -18,7 +18,6 @@ public struct NewToggle<ContentView: View>: View {
     private var isOnKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     private var isOffKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
     
-    private var knobSize: CGSize = .zero
     private var isOnKnobColor: Color = .white
     private var isOffKnobColor: Color = .white
     
@@ -100,11 +99,11 @@ public extension NewToggle {
 
 // MARK: Knob Method
 public extension NewToggle {
-    func knobSize(_ size: CGSize = .zero) -> NewToggle {
-        var view = self
-        view.knobSize = size
-        return view
-    }
+//    func knobSize(_ size: CGSize = .zero) -> NewToggle {
+//        var view = self
+//        view.knobSize = size
+//        return view
+//    }
     
     func knobColor(_ color: Color = .white) -> NewToggle {
         var view = self
