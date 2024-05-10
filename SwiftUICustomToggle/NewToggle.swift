@@ -11,16 +11,8 @@ public struct NewToggle<ContentView: View>: View {
     @Binding public var isOn: Bool
     
     public private(set) var label: () -> ContentView
-//    private var model: ToggleModel = .init(spacing: .zero, buttonSize: .init(width: 36, height: 20), buttonRadius: 10)
-//    private var isOnBgColor: Color = .yellow
-//    private var isOffBgColor: Color = .gray
-//    
-//    private var isOnKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
-//    private var isOffKnobEdge: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)
-//    
-//    private var isOnKnobColor: Color = .white
-//    private var isOffKnobColor: Color = .white
-    
+
+    //TODO: 이거 왜 @StateObject로 초기값으로 계속 Fixed가 될까
     @ObservedObject private var viewModel: CustomToggleViewModel = CustomToggleViewModel()
     
     private var customBackgroundView: AnyView?
@@ -57,14 +49,16 @@ public struct NewToggle<ContentView: View>: View {
         }
     }
     
-    public var knobView: some View {
+    @ViewBuilder
+    private var knobView: some View {
         ZStack {
             circleView
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: isOn ? .trailing : .leading)
     }
     
-    public var circleView: some View {
+    @ViewBuilder
+    private var circleView: some View {
         Circle()
             .fill(isOn ? viewModel(\.knobModel.isOnColor) : viewModel(\.knobModel.isOffColor))
             .overlay {
@@ -87,10 +81,15 @@ public extension NewToggle {
     
     func changeColor(on: Color = .yellow, off: Color = .gray) -> NewToggle {
         let view = self
-//        view.isOnBgColor = on
-//        view.isOffBgColor = off
         view.viewModel.update(\.toggleModel.isOnColor, on)
         view.viewModel.update(\.toggleModel.isOffColor, off)
+        
+//        var view = self
+//        let newViewModel = view.viewModel
+//        newViewModel.update(\.knobModel.isOnColor, on)
+//        newViewModel.update(\.knobModel.isOffColor, off)
+//        view._viewModel = StateObject(wrappedValue: newViewModel)
+        
         return view
     }
     // button의 background를 content로 교체한다
@@ -111,8 +110,6 @@ public extension NewToggle {
     
     func knobColor(_ color: Color = .white) -> NewToggle {
         let view = self
-//        view.isOnKnobColor = color
-//        view.isOffKnobColor = color
         view.viewModel.update(\.knobModel.isOnColor, color)
         view.viewModel.update(\.knobModel.isOffColor, color)
         return view
@@ -120,10 +117,14 @@ public extension NewToggle {
     
     func knobColor(on: Color = .white, off: Color = .white) -> NewToggle {
         let view = self
-//        view.isOnKnobColor = on
-//        view.isOffKnobColor = off
         view.viewModel.update(\.knobModel.isOnColor, on)
-        view.viewModel.update(\.knobModel.isOffColor, off)
+        view.viewModel.update(\.knobModel.isOffColor, on)
+        
+//        var view = self
+//        var newViewModel = view.viewModel
+//        newViewModel.update(\.knobModel.isOnColor, off)
+//        newViewModel.update(\.knobModel.isOffColor, off)
+//        view._viewModel = StateObject(wrappedValue: newViewModel)
         return view
     }
     

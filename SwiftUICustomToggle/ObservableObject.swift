@@ -21,6 +21,12 @@ final class CustomToggleViewModel: ObservableObject {
     
     @Published private var knobState: KnobState = KnobState()
     
+    public init() {
+        print("CustomToggleViewModel init")
+        print("toggleModel -> \(state.toggleModel)")
+        print("knobModel -> \(knobState.knobModel)")
+    }
+    
     func callAsFunction<V: Equatable>(_ keyPath: KeyPath<CustomToggleViewModel.State, V>) -> V {
         return state[keyPath: keyPath]
     }
