@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 /// Knob Padding
 ///
 /// Switch의 Knob의 Padding 모델
@@ -18,17 +17,16 @@ import SwiftUI
 ///     is ``Edge/Set/all``.
 ///   - length: An amount, given in points, to pad this view on the
 ///     specified edges. The default value of this parameter is `zero`.
-@frozen
-public struct KnobPadding: Hashable {
-    public func hash(into hasher: inout Hasher) {
+struct KnobPadding: Hashable {
+    func hash(into hasher: inout Hasher) {
         hasher.combine(edges.rawValue)
         hasher.combine(length)
     }
     
-    public var edges: Edge.Set
-    public var length: CGFloat
+    var edges: Edge.Set
+    var length: CGFloat
     
-    public init(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) {
+    init(_ edges: Edge.Set = .all, _ length: CGFloat = .zero) {
         self.edges = edges
         self.length = length
     }
@@ -43,23 +41,64 @@ public struct KnobPadding: Hashable {
 ///   - buttonSize: Switch의 사이즈. 기본값은 `CGSize(width: 36, height: 20)`.
 ///   - buttonRadius: Switch의 CorenrRadius. 기본값은 `20`.
 @frozen
-public struct CustomToggleModel: Hashable {
+public struct ToggleModel: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(spacing)
         hasher.combine(buttonSize.width)
         hasher.combine(buttonSize.height)
         hasher.combine(buttonRadius)
+        hasher.combine(isOnColor)
+        hasher.combine(isOffColor)
     }
     
     public var spacing: CGFloat
+    
     public var buttonSize: CGSize
+    
     public var buttonRadius: CGFloat
+    
+    public var isOnColor: Color
+    
+    public var isOffColor: Color
     
     public init(spacing: CGFloat = .zero,
                 buttonSize: CGSize = CGSize(width: 36, height: 20),
-                buttonRadius: CGFloat = 20) {
+                buttonRadius: CGFloat = 20,
+                isOnColor: Color = .yellow,
+                isOffColor: Color = .white) {
         self.spacing = spacing
         self.buttonSize = buttonSize
         self.buttonRadius = buttonRadius
+        self.isOnColor = isOnColor
+        self.isOffColor = isOffColor
+    }
+}
+
+struct KnobModel: Equatable {
+    
+    struct Edge: Equatable {
+        var isOn: EdgeInsets
+        
+        var isOff: EdgeInsets
+        
+        init(isOn: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero),
+             isOff: EdgeInsets = EdgeInsets(top: .zero, leading: .zero, bottom: .zero, trailing: .zero)) {
+            self.isOn = isOn
+            self.isOff = isOff
+        }
+    }
+    
+    var edge: Edge
+    
+    var isOnColor: Color
+    
+    var isOffColor: Color
+    
+    init(edge: Edge = Edge(),
+         isOnColor: Color = .white,
+         isOffColor: Color = .white) {
+        self.edge = edge
+        self.isOnColor = isOnColor
+        self.isOffColor = isOffColor
     }
 }
