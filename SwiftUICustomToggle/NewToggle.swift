@@ -118,7 +118,7 @@ public extension NewToggle {
     func knobColor(on: Color = .white, off: Color = .white) -> NewToggle {
         let view = self
         view.viewModel.update(\.knobModel.isOnColor, on)
-        view.viewModel.update(\.knobModel.isOffColor, on)
+        view.viewModel.update(\.knobModel.isOffColor, off)
         
 //        var view = self
 //        var newViewModel = view.viewModel

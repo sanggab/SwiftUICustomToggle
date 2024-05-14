@@ -27,33 +27,64 @@ struct ContentView: View {
 //        }
 //        .accessibilityIdentifier("MyButton")
         
-        VStack {
-            Rectangle()
-                .fill(.orange)
-                .frame(width: 100, height: 100)
-                .onTapGesture {
-                    id = UUID()
-                }
-            
+//        VStack {
+//            Rectangle()
+//                .fill(.orange)
+//                .frame(width: 100, height: 100)
+//                .onTapGesture {
+//                    id = UUID()
+//                }
+//            
+//            NewToggle(isOn: $state) {
+//                Text(state ? "ON" : "OFF")
+//                    .frame(maxWidth: 36)
+//            }
+//            .changeColor(on: .mint, off: .pink)
+//            .replaceCustomBackgroundView {
+//                AsyncImage(url: URL(string: bgImageString)) { image in
+//                    image.resizable()
+//                } placeholder: {
+//                    EmptyView()
+//                }
+//                .frame(width: 36, height: 20)
+//                .clipShape(RoundedRectangle(cornerRadius: 12))
+//            }
+//            .knobPadding(.all, 2)
+//            .knobColor(state ? .pink : .mint)
+//            .accessibilityIdentifier("NewToggle")
+//        }
+//        .id(id)
+        
+        ZStack {
             NewToggle(isOn: $state) {
                 Text(state ? "ON" : "OFF")
-                    .frame(maxWidth: 36)
             }
-            .changeColor(on: .mint, off: .pink)
-            .replaceCustomBackgroundView {
-                AsyncImage(url: URL(string: bgImageString)) { image in
-                    image.resizable()
-                } placeholder: {
-                    EmptyView()
-                }
-                .frame(width: 36, height: 20)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+//            .knobPadding(.all, 2)
+//            .knobColor(.pink)
+//            .knobColor(on: .pink, off: .blue)
+//            .replaceCustomBackgroundView {
+//                AsyncImage(url: URL(string: bgImageString)) { image in
+//                    image.resizable()
+//                } placeholder: {
+//                    EmptyView()
+//                }
+//                .frame(width: 36, height: 20)
+//                .clipShape(RoundedRectangle(cornerRadius: 12))
+//            }
+            .addViewAboveKnob {
+                Image(systemName: "heart.fill")
+                    .resizable()
+                    .frame(width: 10, height: 10)
             }
-            .knobPadding(.all, 2)
-            .knobColor(state ? .pink : .mint)
-            .accessibilityIdentifier("NewToggle")
         }
-        .id(id)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.white)
+        .onTapGesture {
+            withAnimation {
+                state.toggle()
+            }
+        }
+        
     }
 }
 

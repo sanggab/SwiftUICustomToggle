@@ -61,11 +61,11 @@ public struct ToggleModel: Hashable {
     
     public var isOffColor: Color
     
-    public init(spacing: CGFloat = .zero,
+    public init(spacing: CGFloat = 10,
                 buttonSize: CGSize = CGSize(width: 36, height: 20),
                 buttonRadius: CGFloat = 20,
                 isOnColor: Color = .yellow,
-                isOffColor: Color = .white) {
+                isOffColor: Color = .gray) {
         self.spacing = spacing
         self.buttonSize = buttonSize
         self.buttonRadius = buttonRadius
